@@ -8,12 +8,13 @@
           <%= link_to 'Destroy', @project, method: :delete, class: 'btn btn-danger', data: { confirm: 'Are you sure?' } %>
         </div>
     </h2>
-      <h6>Add task</h6>
 
+    <div class="mb-4">
+      <h6>Add task</h6>
         <%= form_for([@task.project, @task]) do |f| %>
           <% if @task.errors.any? %>
-         <div id="error_explanation">
-          <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
+            <div id="error_explanation">
+              <h2><%= pluralize(@task.errors.count, "error") %> prohibited this task from being saved:</h2>
 
           <ul>
             <% @task.errors.full_messages.each do |msg| %>
@@ -29,15 +30,23 @@
           <%= f.submit class: 'btn btn-primary' %>
         </div>
       </div>
-
     <% end %>
+  </div>
 
+    <h4>Tasks</h4>
+    <% @project.tasks.each do |task| %>
+      <% if task.persisted? %>
+        <div class="card">
+          <div class="card-body">
+            <span class="badge badge-primary"><%= task.status %></span>
+             <h5><%= task.name %></h5>
+              <p><%= task.description %></p>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>
-
-
-<hr>
-
 
 
 <hr>
